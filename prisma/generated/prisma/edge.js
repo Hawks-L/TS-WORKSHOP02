@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.15.0
- * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
+ * Prisma Client JS version: 6.17.0
+ * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
  */
 Prisma.prismaVersion = {
-  client: "6.15.0",
-  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
+  client: "6.17.0",
+  engine: "c0aafc03b8ef6cdced8654b9a817999e02457d6a"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -148,7 +148,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-Workshop02\\TS-Workshop02\\prisma\\generated\\prisma",
+      "value": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-WORKSHOP02-main.updated\\TS-WORKSHOP02-main\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -162,20 +162,20 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-Workshop02\\TS-Workshop02\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-WORKSHOP02-main.updated\\TS-WORKSHOP02-main\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
-  "clientVersion": "6.15.0",
-  "engineVersion": "85179d7826409ee107a6ba334b5e305ae3fba9fb",
+  "clientVersion": "6.17.0",
+  "engineVersion": "c0aafc03b8ef6cdced8654b9a817999e02457d6a",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

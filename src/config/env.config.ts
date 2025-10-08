@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
+const env = dotenv.config();
+dotenvExpand.expand(env);
 import {z} from 'zod';
 
 const envSchema = z.object({
@@ -6,7 +10,6 @@ const envSchema = z.object({
     JWT_SECRET: z.string().min(8),
 
     DB_DATABASE: z.string(),
-    DB_USER: z.string(),
     DB_PASSWORD: z.string(),
     DB_HOST: z.string().default('localhost'),
     DB_PORT: z.coerce.number().default(5432),

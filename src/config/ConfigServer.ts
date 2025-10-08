@@ -38,4 +38,14 @@ export abstract class ConfigServer {
 
         return `.${arrayEnv.join(".")}`;
     }
+
+    protected getNumberEnv(key: keyof EnvVariables): number {
+  const raw = this.getEnvironment(key);
+  const num = typeof raw === 'number' ? raw : Number(raw);
+  if (Number.isNaN(num)) {
+    throw new Error(`Env ${String(key)} must be a number, got: ${String(raw)}`);
+  }
+  return num;
+}
+
 }
