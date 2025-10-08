@@ -11,7 +11,7 @@ export class ServerBootstrap extends ConfigServer {
     private _port: number;
     private _logger: pino.Logger;
 
-    constructor () {
+    constructor() {
         super();
 
         this._port = this.getNumberEnv("PORT");
@@ -20,8 +20,7 @@ export class ServerBootstrap extends ConfigServer {
         this.configureMiddleware();
         for (const r of this._routers()) {
             this._app.use("/api", r);
-                }
-
+        }
 
         this.listen();
         this.handleShutdown();
@@ -36,7 +35,9 @@ export class ServerBootstrap extends ConfigServer {
 
     public listen(): void {
         this._app.listen(this._port, async () => {
-            this._logger.info(`Server listen on port: ${this._port} in ${this.getEnvironment("NODE_ENV")} mode`);
+            this._logger.info(
+                `Server listen on port: ${this._port} in ${this.getEnvironment("NODE_ENV")} mode`,
+            );
             this._logger.info(`http://localhost:${this._port}`);
 
             await this.dbConnection();
@@ -58,7 +59,7 @@ export class ServerBootstrap extends ConfigServer {
     }
 
     private handleShutdown(): void {
-        const shutdown = async (signal: string) => {
+        const shutdown = async (signal: string): Promise<void> => {
             try {
                 await prismaClient.$disconnect();
                 this._logger.info(`Prisma disconnected on ${signal}`);
