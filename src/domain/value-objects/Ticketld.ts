@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
 
-export class TickerId {
+export class TicketId {
     private constructor(private readonly value: string) {}
 
-    static new(): TickerId {
-        return new TickerId(randomUUID());
+    static new(): TicketId {
+        return new TicketId(randomUUID());
     }
 
-    static from(value: string): TickerId {
-        return new TickerId(value);
+    static from(value: string): TicketId {
+        return new TicketId(value);
     }
 
     toString(): string {

@@ -1,7 +1,7 @@
 export abstract class BaseEntity<IdType = string> {
     constructor(
         public id: IdType,
-        public readonly createAt: Date = new Date(),
+        public readonly createdAt: Date = new Date(),
     ) {}
 
     public equals(entity?: BaseEntity<IdType>): boolean {
