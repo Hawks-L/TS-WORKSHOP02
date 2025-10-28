@@ -30,12 +30,13 @@ export class PrismaticketRepository implements TicketRepository {
         if (!row) {
             return null;
         }
-        return row ? Ticket.rehydrate(row as RehydrateTicketDTO): null}
+        return row ? Ticket.rehydrate(row as RehydrateTicketDTO) : null;
+    }
 
     async list(): Promise<Ticket[]> {
         const rows = await prismaClient.ticket.findMany({
             orderBy: { createdAt: "desc" },
-        })
+        });
 
         return rows.map((row) => Ticket.rehydrate(row as RehydrateTicketDTO));
     }

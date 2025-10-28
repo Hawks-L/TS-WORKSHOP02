@@ -1,4 +1,5 @@
 import { CreateTicketInput, RehydrateTicketDTO } from "../../application/dtos/ticket";
+import { TicketCreated } from "../events/TicketCreated";
 import { TicketPriority, TicketStatus } from "../value-objects/Status";
 import { TicketId } from "../value-objects/Ticketld";
 
@@ -18,7 +19,7 @@ export class Ticket extends BaseEntity<TicketId> {
     }
 
     public static create(dto: CreateTicketInput, now: Date): Ticket {
-        return new Ticket(
+        const ticket = new Ticket(
             TicketId.new(),
             dto.title,
             "OPEN",
@@ -27,6 +28,21 @@ export class Ticket extends BaseEntity<TicketId> {
             dto.areaId,
             dto.createdAt ?? now,
         );
+
+        const event: TicketCreated = {
+            type: "ticket.created",
+            occurredAt: now,
+            payload: {
+                id: ticket.id.toString(),
+                title: ticket.title,
+                userId: ticket.userId,
+                areaId: ticket.areaId,
+            },
+        };
+
+        ticket.recordEvent(event);
+
+        return ticket;
     }
 
     public static rehydrate(row: RehydrateTicketDTO): Ticket {
