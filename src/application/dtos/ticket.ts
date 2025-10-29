@@ -4,8 +4,8 @@ import { ZTicketPriority, ZTicketStatus } from "../../domain/value-objects/Statu
 export const CreateTicketSchema = z.object({
     title: z.string().trim().min(1, "Title is required"),
     priority: ZTicketPriority,
-    userId: z.uuidv4(),
-    areaId: z.uuidv4(),
+    userId: z.string(),
+    areaId: z.string(),
     createdAt: z.date().optional(),
 });
 
@@ -16,8 +16,8 @@ export const TicketSchema = z.object({
     title: z.string().trim(),
     status: ZTicketStatus,
     priority: ZTicketPriority,
-    userId: z.uuidv4(),
-    areaId: z.uuidv4(),
+    userId: z.string(),
+    areaId: z.string(),
     createdAt: z.date(),
 });
 
@@ -28,8 +28,8 @@ export const RehydrateTicketSchema = z.object({
     title: z.string().trim(),
     status: ZTicketStatus,
     priority: ZTicketPriority,
-    userId: z.uuidv4(),
-    areaId: z.uuidv4(),
+    userId: z.string(),
+    areaId: z.string(),
     createdAt: z.date(),
 });
 

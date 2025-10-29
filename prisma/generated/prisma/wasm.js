@@ -95,7 +95,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  email: 'email'
+  email: 'email',
+  passwordHash: 'passwordHash',
+  role: 'role'
 };
 
 exports.Prisma.AreaScalarFieldEnum = {
@@ -130,7 +132,10 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Role = exports.$Enums.Role = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -148,7 +153,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-WORKSHOP02-main.updated\\TS-WORKSHOP02-main\\prisma\\generated\\prisma",
+      "value": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JS-TP-WORK\\TS-WORKSHOP02-main-completed\\TS-WORKSHOP02-main\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -162,11 +167,12 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JAVASCRIPT\\TS-WORKSHOP02-main.updated\\TS-WORKSHOP02-main\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\laec1\\OneDrive\\Escritorio\\JS-TP-WORK\\TS-WORKSHOP02-main-completed\\TS-WORKSHOP02-main\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
   "clientVersion": "6.17.0",
@@ -184,13 +190,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id      String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name    String?\n  email   String   @unique\n  tickets Ticket[] @relation(\"UserTickets\")\n}\n\nmodel Area {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name        String   @unique\n  tickets     Ticket[] @relation(\"AreaTickets\")\n  description String?\n}\n\nmodel Ticket {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  title       String\n  status      String   @default(\"open\")\n  priority    String\n  createdAt   DateTime @default(now())\n  userId      String   @db.Uuid\n  areaId      String   @db.Uuid\n  updatedAt   DateTime @updatedAt\n  description String?\n\n  user User @relation(\"UserTickets\", fields: [userId], references: [id])\n  area Area @relation(\"AreaTickets\", fields: [areaId], references: [id])\n\n  @@index([userId])\n  @@index([areaId])\n  @@index([status, priority])\n}\n",
-  "inlineSchemaHash": "8f59b555b3ffbb560e8a8fe83d1a2bae7f1c14f784bf2a749981af4dc2ba9a09",
+  "inlineSchema": "enum Role {\n  ADMIN\n  USER\n}\n\n// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name         String?\n  email        String   @unique\n  tickets      Ticket[] @relation(\"UserTickets\")\n  passwordHash String\n  role         Role     @default(USER)\n}\n\nmodel Area {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name        String   @unique\n  tickets     Ticket[] @relation(\"AreaTickets\")\n  description String?\n}\n\nmodel Ticket {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  title       String\n  status      String   @default(\"open\")\n  priority    String\n  createdAt   DateTime @default(now())\n  userId      String   @db.Uuid\n  areaId      String   @db.Uuid\n  updatedAt   DateTime @updatedAt\n  description String?\n\n  user User @relation(\"UserTickets\", fields: [userId], references: [id])\n  area Area @relation(\"AreaTickets\", fields: [areaId], references: [id])\n\n  @@index([userId])\n  @@index([areaId])\n  @@index([status, priority])\n}\n",
+  "inlineSchemaHash": "d2dd313cf03057c57020c2eb684a677e40fe66d2b2fd54fdcd959e3205fed28d",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"UserTickets\"}],\"dbName\":null},\"Area\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"AreaTickets\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Ticket\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"areaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserTickets\"},{\"name\":\"area\",\"kind\":\"object\",\"type\":\"Area\",\"relationName\":\"AreaTickets\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"UserTickets\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"}],\"dbName\":null},\"Area\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"AreaTickets\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Ticket\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"areaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserTickets\"},{\"name\":\"area\",\"kind\":\"object\",\"type\":\"Area\",\"relationName\":\"AreaTickets\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

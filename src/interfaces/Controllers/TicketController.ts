@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateTicket } from "../../application/use-case/CreateTikcet";
+import { CreateTicket } from "../../application/use-case/CreateTicket";
 import { CreateTicketSchema } from "../../application/dtos/ticket";
 import z from "zod";
 import { toHttp } from "../mappers/TicketMapper";

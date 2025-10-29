@@ -1,7 +1,7 @@
 import { Ticket } from "../../domain/entities/Ticket";
 
 export const toHttp = (ticket: Ticket): unknown =>  ({
-    id: ticket.id,
+    id: ticket.id.toString(),
     title: ticket.title,
     status: ticket.status,
     priority: ticket.priority,

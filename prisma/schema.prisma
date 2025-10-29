@@ -1,3 +1,8 @@
+enum Role {
+  ADMIN
+  USER
+}
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -20,6 +25,8 @@ model User {
   name      String?
   email     String   @unique
   tickets   Ticket[] @relation("UserTickets")
+  passwordHash String
+  role         Role     @default(USER)
 }
 
 model Area {

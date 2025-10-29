@@ -5,7 +5,6 @@ import pino from "pino";
 import { prismaClient } from "../infrastructure/db/prisma";
 import { ConfigServer } from "./ConfigServer";
 import { createLogger } from "./logger";
-
 export class ServerBootstrap extends ConfigServer {
     private _app: Application = express();
     private _port: number;
@@ -79,3 +78,5 @@ export class ServerBootstrap extends ConfigServer {
         return [];
     };
 }
+
+// NOTE: TicketModule wiring as per workshop has been applied in module file.

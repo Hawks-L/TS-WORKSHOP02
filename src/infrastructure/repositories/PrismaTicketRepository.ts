@@ -4,6 +4,9 @@ import { Ticket } from "../../domain/entities/Ticket";
 import { prismaClient } from "../db/prisma";
 
 export class PrismaticketRepository implements TicketRepository {
+    search(_params: { offset: number; limit: number; status?: Ticket["status"]; priority?: Ticket["priority"]; userId?: string; areaId?: string; createdFrom?: Date; createdTo?: Date; sortBy?: "createdAt" | "priority" | "title"; order?: "asc" | "desc"; }): Promise<{ items: Ticket[]; total: number; offset: number; limit: number; }> {
+        throw new Error("Method not implemented.");
+    }
     async save(ticket: Ticket): Promise<void> {
         await prismaClient.ticket.upsert({
             where: { id: ticket.id.toString() },

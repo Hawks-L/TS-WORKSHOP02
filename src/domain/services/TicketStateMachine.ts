@@ -1,7 +1,7 @@
 import { TicketStatus } from "../value-objects/Status";
 
 const ALLOWED: Record<TicketStatus, TicketStatus[]> = {
-    OPEN: ["ASSIGNED", "CANCELLED"],
+    OPEN: ["ASSIGNED","RESOLVED" , "CANCELLED"],
     ASSIGNED: ["IN_PROGRESS", "CANCELLED"],
     IN_PROGRESS: ["RESOLVED", "CANCELLED"],
     RESOLVED: ["CLOSED"],

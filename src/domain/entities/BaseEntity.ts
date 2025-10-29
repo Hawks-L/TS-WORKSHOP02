@@ -21,4 +21,8 @@ export abstract class BaseEntity<IdType = string> {
         this._domainEvents.length = 0;
         return events;
     }
+
+    public pullDomainEvents(): DomainEvent[] {
+        return this.pullDomainEvent();
+    }
 }
